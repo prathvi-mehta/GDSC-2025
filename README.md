@@ -34,6 +34,7 @@ npm run dev  # Runs the backend
 cd client && npm start  # Runs the frontend  
 ```
 ##🎯 Contributing
+
 We welcome contributions! If you'd like to improve the project, follow these steps:
 
 1. Fork the repository
@@ -43,4 +44,5 @@ We welcome contributions! If you'd like to improve the project, follow these ste
 5. Please ensure your contributions align with the project’s goal and maintain clean, readable code.
 
 ##📜 License
+
 ***This project is licensed under the MIT License. See the LICENSE file for more details.***
