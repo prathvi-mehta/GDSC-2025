@@ -22,3 +22,25 @@
 ```bash
 git clone https://github.com/yourusername/e-waste-connect.git
 cd e-waste-connect
+```
+###2️⃣ Install Dependencies
+```bash
+npm install  # Installs backend dependencies
+cd client && npm install  # Installs frontend dependencies
+```
+###3️⃣ Start the Application
+```bash
+npm run dev  # Runs the backend  
+cd client && npm start  # Runs the frontend  
+```
+##🎯 Contributing
+We welcome contributions! If you'd like to improve the project, follow these steps:
+
+1. Fork the repository
+2. Create a new branch (feature-branch)
+3. Commit your changes
+4. Push to your fork and create a pull request
+5. Please ensure your contributions align with the project’s goal and maintain clean, readable code.
+
+##📜 License
+***This project is licensed under the MIT License. See the LICENSE file for more details.***
