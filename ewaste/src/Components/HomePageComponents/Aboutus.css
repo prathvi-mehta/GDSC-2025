@@ -1,0 +1,36 @@
+.about {
+    padding: 5% 8%;
+    background: #fff;
+    text-align: center;
+  }
+  
+  .about-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .about-text {
+    max-width: 500px;
+  }
+  
+  .about h2 {
+    font-size: 2.8rem;
+    color: #222;
+  }
+  
+  .about h2 span {
+    color: #4caf50;
+  }
+  
+  .about p {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 1rem;
+  }
+  
+  .about-image img {
+    width: 300px;
+  }
+  

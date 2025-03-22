@@ -1,0 +1,261 @@
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+    padding: 0 5%;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hero-content {
+    flex: 1;
+    max-width: 600px;
+    padding-right: 2rem;
+    z-index: 2;
+  }
+  
+  .hero-content h1 {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  
+  .hero-content h1 .highlight {
+    color: var(--accent-color);
+    position: relative;
+    display: inline-block;
+  }
+  
+  .hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.8;
+  }
+  
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  
+  .primary-button,
+  .secondary-button {
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .primary-button {
+    background-color: var(--accent-color);
+    color: #000;
+    border: none;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  }
+  
+  .primary-button:hover {
+    background-color: #45a049;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+  }
+  
+  .secondary-button {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 2px solid var(--accent-color);
+  }
+  
+  .secondary-button:hover {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: var(--accent-color);
+    transform: translateY(-3px);
+  }
+  
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+  }
+  
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #4caf50;
+  }
+  
+  .stat-label {
+    color: #cccccc;
+    font-size: 1rem;
+  }
+  
+  .hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .image-container {
+    position: relative;
+    width: 100%;
+    max-width: 550px;
+  }
+  
+  .main-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+  }
+  
+  .main-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  }
+  
+  .floating-icon {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 3;
+  }
+  
+  .floating-icon img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+  }
+  
+  .icon-1 {
+    top: -20px;
+    left: 10%;
+  }
+  
+  .icon-2 {
+    bottom: 20%;
+    right: -20px;
+  }
+  
+  .icon-3 {
+    bottom: -15px;
+    left: 20%;
+  }
+  
+  .hero-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .particle {
+    position: absolute;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .hero-content h1 {
+      font-size: 3rem;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .hero {
+      flex-direction: column;
+      text-align: center;
+      padding-top: 100px;
+      padding-bottom: 50px;
+    }
+  
+    .hero-content {
+      padding-right: 0;
+      margin-bottom: 3rem;
+      max-width: 100%;
+    }
+  
+    .hero-buttons {
+      justify-content: center;
+    }
+  
+    .floating-icon {
+      width: 50px;
+      height: 50px;
+    }
+  
+    .floating-icon img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .hero-content h1 {
+      font-size: 2.5rem;
+    }
+  
+    .hero-content p {
+      font-size: 1.1rem;
+    }
+  
+    .primary-button,
+    .secondary-button {
+      padding: 0.8rem 1.5rem;
+    }
+  
+    .image-container {
+      max-width: 450px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .hero-content h1 {
+      font-size: 2rem;
+    }
+  
+    .hero-buttons {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  
+    .floating-icon {
+      width: 40px;
+      height: 40px;
+    }
+  
+    .floating-icon img {
+      width: 25px;
+      height: 25px;
+    }
+  }
+  

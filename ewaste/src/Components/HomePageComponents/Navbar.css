@@ -1,0 +1,864 @@
+.navbar {
+    position: fixed;
+    top: 0;
+  left: 0;
+    width: 100%;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  height: 70px;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  padding: 0.8rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: 0.8rem;
+}
+
+.logo-icon {
+  font-size: 1.8rem;
+  color: var(--accent-color);
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  margin-right: 0.5rem;
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-link {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  padding: 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+  height: 40px;
+}
+
+.nav-link span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.nav-link i {
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  color: var(--accent-color);
+  flex-shrink: 0;
+}
+
+/* Services Dropdown Styles */
+.services-dropdown {
+  position: relative;
+  cursor: pointer;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin: 0 0.5rem;
+  z-index: 1001;
+}
+
+.services-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.services-link i {
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+  color: var(--accent-color);
+}
+
+.services-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  background: rgba(0, 0, 0, 0.98);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 0.8rem;
+  min-width: 250px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  z-index: 1002;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-link {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1rem;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 0.95rem;
+  font-weight: 500;
+  height: 40px;
+}
+
+.service-link:last-child {
+  margin-bottom: 0;
+}
+
+.service-link span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.service-link i {
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  color: var(--accent-color);
+  flex-shrink: 0;
+}
+
+/* Auth Buttons */
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-left: auto;
+}
+
+.mobile-auth-buttons {
+  display: none;
+}
+
+.nav-button {
+  margin-left: 0;
+}
+
+.nav-button a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  height: 40px;
+  min-width: 100px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  white-space: nowrap;
+}
+
+.login-btn a {
+  color: var(--text-color);
+}
+
+.login-btn a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.signup-btn a {
+  background: var(--accent-color);
+  color: #000;
+  border: none;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2);
+}
+
+.signup-btn a:hover {
+  background: #2ecc71;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+}
+
+/* Scanner Button */
+.scanner-button-container {
+  margin: 0 0.5rem;
+}
+
+.scanner-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  height: 40px;
+  background: var(--accent-color);
+  color: #000;
+  border: none;
+  white-space: nowrap;
+}
+
+.scanner-button i {
+  font-size: 1.1rem;
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+@media (max-width: 992px) {
+  .nav-container {
+    padding: 0.8rem 1rem;
+  }
+  
+  .mobile-menu-btn {
+    display: flex;
+  }
+  
+  .nav-links {
+    display: none;
+  }
+  
+  .nav-links.open {
+    display: flex;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 70px);
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.98);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    gap: 1rem;
+    overflow-y: auto;
+  }
+  
+  .nav-link {
+    width: 100%;
+    justify-content: center;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+  }
+  
+  .services-dropdown {
+    width: 100%;
+    justify-content: center;
+    margin: 0.5rem 0;
+    height: 45px;
+  }
+  
+  .services-menu {
+    position: static;
+    background: transparent;
+    box-shadow: none;
+    padding: 0.5rem 0;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    display: none;
+    margin-top: 0.5rem;
+  }
+  
+  .services-menu.active {
+    display: block;
+  }
+  
+  .service-link {
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
+  
+  .desktop-auth {
+    display: none;
+  }
+  
+  .mobile-auth-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 1rem 0;
+    gap: 0.8rem;
+  }
+  
+  .mobile-auth-buttons .nav-button {
+    width: 100%;
+  }
+  
+  .mobile-auth-buttons .nav-button a {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .scanner-button-container {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+  
+  .scanner-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Services Dropdown Hover Effect */
+@media (min-width: 993px) {
+  .services-dropdown:hover .services-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+/* Add cool scroll effect for navbar */
+.navbar.scrolled {
+  background: rgba(0, 0, 0, 0.98);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  height: 65px;
+}
+
+.navbar.scrolled .nav-container {
+  padding: 0.6rem 2rem;
+}
+
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 18px;
+  background: transparent;
+  border: none;
+    cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+.mobile-menu-btn span {
+  width: 100%;
+  height: 3px;
+  background-color: var(--accent-color);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-btn.open span:first-child {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.mobile-menu-btn.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-btn.open span:last-child {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+.main-scanner-button {
+  margin: 0 1.5rem;
+  position: relative;
+  z-index: 10;
+}
+
+.main-scanner-button .scanner-button {
+  background-color: var(--accent-color);
+  color: #000;
+  font-weight: 700;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.main-scanner-button .scanner-button i {
+  font-size: 1.2rem;
+  animation: scanner-glow 2s infinite;
+}
+
+@keyframes scanner-glow {
+  0% {
+    text-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(76, 175, 80, 1), 0 0 20px rgba(76, 175, 80, 0.7);
+  }
+  100% {
+    text-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  }
+}
+
+.main-scanner-button .scanner-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(45deg);
+  animation: scanner-sweep 3s infinite;
+}
+
+@keyframes scanner-sweep {
+  0% {
+    transform: rotate(45deg) translateY(-100%);
+  }
+  100% {
+    transform: rotate(45deg) translateY(100%);
+  }
+}
+
+@media (max-width: 768px) {
+  .logo-text {
+    font-size: 1.5rem;
+  }
+  
+  .nav-container {
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-text {
+    font-size: 1.3rem;
+  }
+  
+  .nav-container {
+    padding: 0.6rem;
+  }
+}
+
+/* Mobile Menu Styles */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 80%;
+  max-width: 400px;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  z-index: 1000;
+  transition: right 0.3s ease;
+  overflow-y: auto;
+}
+
+.mobile-menu.active {
+  right: 0;
+}
+
+.mobile-menu .nav-links {
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.mobile-menu .services-menu {
+  position: static;
+  background: transparent;
+  box-shadow: none;
+  padding: 0.5rem 0;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  display: none;
+}
+
+.mobile-menu .services-menu.active {
+  display: block;
+}
+
+.mobile-menu .service-link {
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu .service-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(5px);
+}
+
+.mobile-menu .service-link i {
+  font-size: 1.2rem;
+  margin-right: 1rem;
+}
+
+/* Add cool hover effects for all buttons */
+.nav-links a,
+.auth-buttons button,
+.mobile-menu .nav-links a {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.nav-links a::after,
+.auth-buttons button::after,
+.mobile-menu .nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.auth-buttons button:hover::after,
+.mobile-menu .nav-links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Add glow effect to buttons */
+.auth-buttons button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.auth-buttons button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+  transform: scale(0);
+  transition: transform 0.5s ease;
+}
+
+.auth-buttons button:hover::before {
+  transform: scale(1);
+}
+
+/* Add cool animation for mobile menu button */
+.mobile-menu-btn {
+  position: relative;
+  width: 30px;
+  height: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-btn span {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-btn span:nth-child(1) {
+  top: 0;
+}
+
+.mobile-menu-btn span:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.mobile-menu-btn span:nth-child(3) {
+  bottom: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(1) {
+  transform: rotate(45deg);
+  top: 9px;
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+  transform: rotate(-45deg);
+  bottom: 9px;
+}
+
+/* Add cool scroll effect for navbar */
+.navbar.scrolled {
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Add cool hover effect for logo */
+.nav-logo {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-logo:hover {
+  transform: scale(1.05);
+}
+
+.logo-text {
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-text::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.logo-text:hover::after {
+  transform: translateX(0);
+}
+
+/* Add cool animation for dropdown items */
+.service-link {
+  animation: slideIn 0.3s ease forwards;
+  opacity: 0;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.service-link:nth-child(1) { animation-delay: 0.1s; }
+.service-link:nth-child(2) { animation-delay: 0.2s; }
+.service-link:nth-child(3) { animation-delay: 0.3s; }
+.service-link:nth-child(4) { animation-delay: 0.4s; }
+.service-link:nth-child(5) { animation-delay: 0.5s; }
+.service-link:nth-child(6) { animation-delay: 0.6s; }
+
+/* Add cool hover effect for service icons */
+.service-link i {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.service-link:hover i {
+  transform: scale(1.2) rotate(5deg);
+  color: #00ff88;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+/* Add cool effect for active service */
+.service-link.active {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.service-link.active i {
+  color: #00ff88;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+/* Add cool effect for mobile menu items */
+.mobile-menu .nav-links a {
+  position: relative;
+  padding: 0.8rem 0;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu .nav-links a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 2px;
+  background: #00ff88;
+  transition: width 0.3s ease;
+}
+
+.mobile-menu .nav-links a:hover::before {
+  width: 100%;
+}
+
+/* Add cool effect for close button */
+.close-menu {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close-menu:hover {
+  transform: rotate(90deg);
+}
+
+.close-menu::before,
+.close-menu::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  transition: all 0.3s ease;
+}
+
+.close-menu::before {
+  transform: rotate(45deg);
+}
+
+.close-menu::after {
+  transform: rotate(-45deg);
+}
+
+.close-menu:hover::before,
+.close-menu:hover::after {
+  background: #00ff88;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+/* Add hover effect for services dropdown */
+.services-dropdown:hover .services-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Add active state for services dropdown */
+.services-dropdown.active .services-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Add glow effect to active service */
+.service-link.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+  animation: glow 2s infinite;
+}
+
+@keyframes glow {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+/* Add styles for auth-buttons-container in navbar */
+.auth-buttons .auth-buttons-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .mobile-auth-buttons .auth-buttons-container {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .mobile-auth-buttons .login-link,
+  .mobile-auth-buttons .signup-link {
+    width: 100%;
+    justify-content: center;
+  }
+}
+  
+  
