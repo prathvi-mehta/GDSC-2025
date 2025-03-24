@@ -7,7 +7,6 @@ import Navbar from "../Components/HomePageComponents/nav";
 import Hero from "../Components/HomePageComponents/Hero";
 import About from "../Components/HomePageComponents/About";
 import Services from "../Components/HomePageComponents/Service";
-import Pricing from "../Components/HomePageComponents/Pricing";
 import Contact from "../Components/HomePageComponents/Contact";
 import Footer from "../Components/HomePageComponents/Footer";
 import "./HomePage.css";
@@ -77,10 +76,6 @@ const HomePage = () => {
       
       <div data-aos="fade-up" data-aos-delay="300">
         <Services />
-      </div>
-      
-      <div data-aos="fade-up" data-aos-delay="400">
-        <Pricing />
       </div>
       
       <div data-aos="fade-up" data-aos-delay="500">
