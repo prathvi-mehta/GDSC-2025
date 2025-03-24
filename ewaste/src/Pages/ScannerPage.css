@@ -684,89 +684,142 @@
   line-height: 1.4;
 }
 
-@media (max-width: 768px) {
+/* Enhanced mobile responsiveness for scanner page */
+@media (max-width: 992px) {
   .scanner-content {
-    padding: 2rem 1rem;
-  }
-  
-  .scanner-box {
     padding: 2rem 1.5rem;
   }
   
-  .scanner-box h2 {
-    font-size: 2rem;
-  }
-  
-  .video-container {
-    height: 300px;
-  }
-  
-  .result-card {
+  .scanner-box {
     padding: 1.5rem;
   }
   
-  .result-header {
+  .scan-options {
+    gap: 1.5rem;
+  }
+  
+  .scanner-header h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .scanner-content {
+    padding: 1.5rem 1rem;
+  }
+  
+  .scanner-box {
+    padding: 1.2rem;
+  }
+  
+  .scanner-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .scanner-options {
     flex-direction: column;
-    text-align: center;
-    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .scanner-options button {
+    width: 100%;
+  }
+  
+  .result-container {
+    padding: 1rem;
+  }
+  
+  .result-card {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .device-info {
+    padding-left: 1rem;
   }
   
   .sustainability-header {
     flex-direction: column;
     align-items: center;
-    text-align: center;
     gap: 1.5rem;
   }
   
   .score-circle {
-    margin: 0 auto;
+    margin-right: 0;
+    margin-bottom: 1rem;
   }
   
-  .safety-grid, 
-  .value-grid, 
-  .region-tabs {
-    grid-template-columns: 1fr;
+  .safety-disposal {
+    flex-direction: column;
+  }
+  
+  .safety-column, .disposal-column {
+    width: 100%;
+  }
+  
+  .value-section {
+    flex-direction: column;
+  }
+  
+  .value-column {
+    width: 100%;
   }
 }
 
 @media (max-width: 480px) {
-  .scanner-box {
-    padding: 1.5rem 1rem;
+  .scanner-header h2 {
+    font-size: 1.5rem;
   }
   
-  .scanner-view {
+  .scanner-header p {
+    font-size: 0.9rem;
+  }
+  
+  .scanner-box {
     padding: 1rem;
   }
   
-  .video-container {
-    height: 250px;
+  .result-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
   
-  .scanner-controls {
+  .result-icon {
+    margin-bottom: 1rem;
+  }
+  
+  .device-info {
+    padding-left: 0;
+  }
+  
+  .score-circle {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .score-inner {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .score-text {
+    font-size: 1.5rem;
+  }
+  
+  .specification-tag {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+    margin: 0.2rem;
+  }
+  
+  .action-buttons {
     flex-direction: column;
     gap: 0.8rem;
   }
   
-  .capture-btn, .stop-btn, .scan-btn {
+  .action-buttons button {
     width: 100%;
-  }
-  
-  .result-card {
-    padding: 1.2rem;
-  }
-  
-  .score-circle {
-    width: 100px;
-    height: 100px;
-  }
-  
-  .score-inner {
-    width: 80px;
-    height: 80px;
-  }
-  
-  .score-text {
-    font-size: 1.6rem;
   }
 }
 

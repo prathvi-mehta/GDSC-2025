@@ -365,4 +365,148 @@ p {
   section {
     padding: 2rem 1rem;
   }
+}
+
+/* Enhance homepage responsiveness */
+@media (max-width: 992px) {
+  .hero-section {
+    padding: 4rem 2rem;
+  }
+  
+  .hero-content {
+    max-width: 90%;
+  }
+  
+  .service-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .stats-content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .call-to-action {
+    padding: 3rem 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 3rem 1.5rem;
+    text-align: center;
+  }
+  
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .hero-buttons {
+    justify-content: center;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .service-grid, 
+  .feature-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .stats-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .stat-item h3 {
+    font-size: 2rem;
+  }
+  
+  .call-to-action {
+    padding: 2.5rem 1.5rem;
+  }
+  
+  .cta-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .cta-text {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 2.5rem 1rem;
+  }
+  
+  .hero-title {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .hero-buttons .primary-button,
+  .hero-buttons .secondary-button {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .service-card,
+  .feature-card {
+    padding: 1.2rem;
+  }
+  
+  .stat-item h3 {
+    font-size: 1.8rem;
+  }
+  
+  .stat-item p {
+    font-size: 0.9rem;
+  }
+  
+  .testimonial-card {
+    padding: 1.2rem;
+  }
+  
+  .testimonial-text {
+    font-size: 0.9rem;
+  }
+  
+  .call-to-action {
+    padding: 2rem 1rem;
+  }
+  
+  .cta-title {
+    font-size: 1.5rem;
+  }
 } 

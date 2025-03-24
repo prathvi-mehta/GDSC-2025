@@ -254,3 +254,155 @@ input:focus, textarea:focus, select:focus {
     transform: translateX(100%);
   }
 }
+
+/* Add responsive typography */
+@media (max-width: 768px) {
+  h1 {
+    font-size: calc(2rem + 1vw) !important;
+  }
+  
+  h2 {
+    font-size: calc(1.5rem + 1vw) !important;
+  }
+  
+  h3 {
+    font-size: calc(1.3rem + 0.5vw) !important;
+  }
+  
+  body {
+    font-size: 0.95rem;
+  }
+  
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 480px) {
+  h1 {
+    font-size: calc(1.8rem + 0.5vw) !important;
+  }
+  
+  h2 {
+    font-size: calc(1.4rem + 0.5vw) !important;
+  }
+  
+  h3 {
+    font-size: calc(1.2rem + 0.5vw) !important;
+  }
+  
+  body {
+    font-size: 0.9rem;
+  }
+  
+  .btn {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  
+  .container {
+    padding: 0 0.8rem;
+  }
+}
+
+/* Add a utility class for responsive images */
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Add responsive grid system */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.col {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+.col-auto {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: 100%;
+}
+
+.col-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.col-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+@media (min-width: 576px) {
+  .col-sm-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  
+  .col-sm-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .col-md-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+  
+  .col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  
+  .col-md-8 {
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+  }
+}
+
+@media (min-width: 992px) {
+  .col-lg-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  
+  .col-lg-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+  
+  .col-lg-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+/* Add responsive spacing utilities */
+@media (max-width: 768px) {
+  .mt-md-0 { margin-top: 0 !important; }
+  .mb-md-0 { margin-bottom: 0 !important; }
+  .my-md-3 { margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
+  .p-md-2 { padding: 1rem !important; }
+}
+
+@media (max-width: 480px) {
+  .mt-sm-0 { margin-top: 0 !important; }
+  .mb-sm-0 { margin-bottom: 0 !important; }
+  .my-sm-2 { margin-top: 1rem !important; margin-bottom: 1rem !important; }
+  .p-sm-2 { padding: 1rem !important; }
+}

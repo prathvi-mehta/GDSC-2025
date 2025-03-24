@@ -1,0 +1,141 @@
+/* Enhance dashboard responsiveness */
+@media (max-width: 992px) {
+  .dashboard-container {
+    padding: 2rem 1.5rem;
+  }
+  
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .user-greeting {
+    margin-bottom: 1rem;
+  }
+  
+  .dashboard-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .stats-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .recent-activity, 
+  .upcoming-events {
+    padding: 1.5rem;
+  }
+  
+  .progress-container {
+    flex-direction: column;
+  }
+  
+  .progress-chart {
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  
+  .recycling-progress {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1.5rem 1rem;
+  }
+  
+  .dashboard-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .stats-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .stats-card {
+    padding: 1.2rem;
+  }
+  
+  .stats-card h3 {
+    font-size: 1.5rem;
+  }
+  
+  .stats-card p {
+    font-size: 0.9rem;
+  }
+  
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .activity-item {
+    padding: 0.8rem;
+  }
+  
+  .event-item {
+    padding: 0.8rem;
+  }
+  
+  .tabs-container {
+    overflow-x: auto;
+  }
+  
+  .tab-button {
+    min-width: 100px;
+    padding: 0.8rem 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: 1.2rem 0.8rem;
+  }
+  
+  .dashboard-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .dashboard-actions {
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+  
+  .dashboard-actions button {
+    flex: 1 0 100%;
+  }
+  
+  .stats-card h3 {
+    font-size: 1.2rem;
+  }
+  
+  .stats-card p {
+    font-size: 0.8rem;
+  }
+  
+  .activity-header, 
+  .events-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .activity-header button, 
+  .events-header button {
+    width: 100%;
+  }
+  
+  .tab-button {
+    min-width: 80px;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .progress-chart canvas {
+    height: 200px !important;
+  }
+} 

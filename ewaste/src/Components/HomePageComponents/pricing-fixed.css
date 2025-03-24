@@ -118,10 +118,9 @@
 
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-bottom: 4rem;
-  justify-items: center;
 }
 
 .pricing-card {
@@ -136,9 +135,6 @@
   flex-direction: column;
   border: 1px solid rgba(76, 175, 80, 0.1);
   backdrop-filter: blur(10px);
-  width: 100%;
-  max-width: 340px;
-  margin: 0 auto;
 }
 
 .pricing-card:hover {
@@ -167,54 +163,10 @@
   z-index: 2;
 }
 
-.card-image {
-  height: 160px;
-  position: relative;
-  overflow: hidden;
-}
-
-.card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.pricing-card:hover .card-image img {
-  transform: scale(1.1);
-}
-
-.image-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(76, 175, 80, 0.2);
-  mix-blend-mode: overlay;
-}
-
 .card-header {
   text-align: center;
   padding: 2rem 2rem 1rem;
   position: relative;
-}
-
-.plan-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: -50px auto 1rem;
-  position: relative;
-  z-index: 2;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.plan-icon i {
-  font-size: 1.5rem;
 }
 
 .card-header h3 {
@@ -223,37 +175,31 @@
   margin-bottom: 1rem;
 }
 
+/* Fixed pricing display */
 .price {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 0.25rem;
+  text-align: center;
   margin-bottom: 1rem;
-  padding: 0;
-  min-height: 70px;
-  width: 100%;
-  position: relative;
-  overflow: visible;
+  min-height: 80px;
 }
 
 .amount {
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: var(--accent-color);
+  display: block;
   line-height: 1.1;
-  text-align: center;
-  padding: 0 0.5rem;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  max-width: 100%;
-  position: relative;
+  width: 100%;
+  word-break: break-all;
+  word-wrap: break-word;
 }
 
 .period {
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.6);
-  text-align: center;
+  margin-top: 0.5rem;
 }
 
 .features-list {
@@ -355,37 +301,57 @@
   box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
 }
 
-@media (max-width: 992px) {
+/* Responsive styles */
+@media (max-width: 1024px) {
   .pricing-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
   }
   
-  .pricing-card {
-    max-width: 320px;
+  .amount {
+    font-size: 2.2rem;
+  }
+  
+  .card-header {
+    padding: 1.5rem 1.5rem 1rem;
+  }
+  
+  .features-list {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .pricing-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .footer-text {
+    text-align: center;
   }
   
   .amount {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 }
 
 @media (max-width: 768px) {
   .pricing-grid {
     grid-template-columns: 1fr;
-    max-width: 350px;
+    max-width: 400px;
     margin-left: auto;
     margin-right: auto;
-    gap: 2rem;
-  }
-  
-  .pricing-card {
-    max-width: 100%;
-    transform: none !important;
   }
   
   .pricing-card.popular {
-    transform: none !important;
+    transform: none;
     order: -1;
   }
   
@@ -398,17 +364,18 @@
     gap: 1rem;
     background: transparent;
     padding: 0;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto 2rem;
   }
   
   .tab-btn {
     border-radius: 8px;
     width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
   }
   
   .amount {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 }
 
@@ -438,23 +405,10 @@
   }
   
   .amount {
-    font-size: 1.5rem;
-    padding: 0;
+    font-size: 1.8rem;
   }
   
   .price {
-    padding: 0 1rem;
-    min-height: 60px;
+    min-height: 70px;
   }
-  
-  .period {
-    font-size: 0.8rem;
-    margin-top: 0.25rem;
-  }
-}
-
-@media (max-width: 1024px) {
-  .amount {
-    font-size: 2.2rem;
-  }
-}
+} 

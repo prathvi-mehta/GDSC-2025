@@ -489,10 +489,10 @@
 
 .how-it-works h3 {
   font-size: 2rem;
-  margin-bottom: 3rem;
-  color: var(--accent-color);
+  color: var(--text-color);
   position: relative;
   display: inline-block;
+  margin-bottom: 3rem;
 }
 
 .how-it-works h3::after {
@@ -511,46 +511,57 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.5rem;
+  margin: 0 auto;
+  max-width: 1000px;
 }
 
 .step {
   background: rgba(18, 18, 18, 0.7);
-  border-radius: 15px;
-  padding: 2rem;
+  border-radius: 12px;
+  padding: 1.5rem;
   width: 250px;
   text-align: center;
-  border: 1px solid rgba(76, 175, 80, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
+  border: 1px solid rgba(76, 175, 80, 0.1);
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .step:hover {
   transform: translateY(-10px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
 }
 
 .step-icon {
-  font-size: 3rem;
+  font-size: 2rem;
   color: var(--accent-color);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .step h4 {
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
-  color: var(--accent-color);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
 }
 
 .step p {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 0;
 }
 
 .step-connector {
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: rgba(255, 255, 255, 0.3);
+  margin: 0 1rem;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 .modal-overlay {
@@ -716,6 +727,23 @@
   pointer-events: none;
 }
 
+@media (max-width: 992px) {
+  .steps-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  
+  .step {
+    width: calc(50% - 2rem);
+    min-height: 180px;
+  }
+  
+  .step-connector {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   .rewards-content {
     padding: 2rem 1rem;
@@ -754,10 +782,19 @@
   
   .steps-container {
     flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .step {
+    width: 100%;
+    max-width: 350px;
+    min-height: auto;
   }
   
   .step-connector {
     transform: rotate(90deg);
+    margin: 0.5rem 0;
+    display: flex;
   }
 }
 
@@ -786,5 +823,13 @@
   
   .cancel-btn, .confirm-btn {
     width: 100%;
+  }
+  
+  .how-it-works h3 {
+    font-size: 1.6rem;
+  }
+  
+  .step {
+    padding: 1.2rem;
   }
 } 

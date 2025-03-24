@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { FaCheck } from 'react-icons/fa';
 import "./Pricing.css";
 
 const Pricing = () => {

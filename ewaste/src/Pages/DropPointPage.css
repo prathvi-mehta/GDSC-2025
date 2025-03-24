@@ -802,15 +802,25 @@
   pointer-events: none;
 }
 
-/* Responsive styles */
+/* Responsive improvements for Drop Points page */
+
+/* Mobile and tablet adjustments */
 @media (max-width: 992px) {
-  .drop-points-list {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  .drop-points-box {
+    padding: 1.5rem;
   }
   
+  .drop-points-grid {
+    grid-template-columns: 1fr;
+  }
+
   .search-filter-bar {
     flex-direction: column;
-    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .search-container {
+    width: 100%;
   }
   
   .view-tabs {
@@ -818,64 +828,85 @@
     justify-content: center;
   }
   
-  .search-container {
-    width: 100%;
+  .map-container {
+    height: 350px;
   }
 }
 
 @media (max-width: 768px) {
   .drop-points-header h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   
-  .drop-points-content {
-    padding: 1.5rem;
+  .drop-points-header p {
+    font-size: 1rem;
   }
   
-  .map-container {
-    height: 450px;
+  .drop-point-card {
+    padding: 1rem;
   }
   
-  .options-grid {
-    grid-template-columns: 1fr;
+  .drop-point-header h3 {
+    font-size: 1.2rem;
   }
   
-  .drop-point-details p {
-    font-size: 0.95rem;
+  .accepted-items .item-tag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+  }
+  
+  .card-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .view-on-map-btn, .get-directions-btn {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+  
+  .drop-points-info {
+    padding: 1rem;
   }
   
   .info-tips {
     flex-direction: column;
+    gap: 1rem;
   }
   
-  .drop-point-card::before {
-    width: 100%;
-    height: 4px;
-    top: 0;
-    left: 0;
+  .info-tip {
+    padding: 0.8rem;
+  }
+  
+  .options-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 480px) {
   .drop-points-header h2 {
-    font-size: 1.8rem;
-  }
-  
-  .drop-points-list {
-    grid-template-columns: 1fr;
-  }
-  
-  .drop-point-actions {
-    flex-direction: column;
-  }
-  
-  .option-icon {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .option-icon i {
     font-size: 1.5rem;
+  }
+  
+  .location-badge, .share-location-btn {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .search-input {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem 0.6rem 2.5rem;
+  }
+  
+  .tab-btn {
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+  }
+  
+  .drop-point-details p, .rating-stars {
+    font-size: 0.85rem;
   }
 }
 
