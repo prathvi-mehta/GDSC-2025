@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import Navbar from "../Components/HomePageComponents/nav";
-import Footer from "../Components/HomePageComponents/Footer";
+import Footer from "../Components/HomePageComponents/footer";
 import RecyclerListView from "../Components/DropPoints/RecyclerListView";
 import RecyclerMapView from "../Components/DropPoints/RecyclerMapView";
 import InfoSection from "../Components/DropPoints/InfoSection";
