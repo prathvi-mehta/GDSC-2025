@@ -1,9 +1,6 @@
 {
   "hosting": {
-<<<<<<< HEAD
     "site": "fir-452812",
-=======
->>>>>>> bdf707c (..)
     "public": "ewaste/dist",
     "ignore": [
       "firebase.json",
@@ -14,7 +11,6 @@
     ],
     "rewrites": [
       {
-<<<<<<< HEAD
         "source": "/analyze",
         "function": "api"
       },
@@ -23,8 +19,6 @@
         "function": "api"
       },
       {
-=======
->>>>>>> bdf707c (..)
         "source": "/api/**",
         "function": "api"
       },

@@ -20,18 +20,8 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware - Use CORS with proper configuration for production
 const corsOptions = {
-<<<<<<< HEAD
   origin: '*', // Allow all origins for testing
   methods: ['GET', 'POST', 'OPTIONS'],
-=======
-  origin: [
-    'https://fir-452812.web.app', 
-    'https://firebase-452812.web.app',
-    'http://localhost:5173', // For local development
-    'http://localhost:5000'  // For local development
-  ],
-  methods: ['GET', 'POST'],
->>>>>>> bdf707c (..)
   allowedHeaders: ['Content-Type', 'Authorization']
 };
 
@@ -39,7 +29,6 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-<<<<<<< HEAD
 // Configure storage for multer
 const storage = multer.memoryStorage();
 const upload = multer({ 
@@ -51,15 +40,6 @@ const upload = multer({
 
 // Add preflight OPTIONS handler
 app.options('*', cors(corsOptions));
-=======
-// Debugging endpoint to verify API is working
-app.get('/api/test', (req, res) => {
-  res.json({ status: 'API is working' });
-});
-
-// Configure file upload
-const upload = multer({ storage: multer.memoryStorage() });
->>>>>>> bdf707c (..)
 
 // Check if .env file exists and read API key directly if needed
 let API_KEY = process.env.GOOGLE_API_KEY;
@@ -117,7 +97,6 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(__dirname));
 }
 
-<<<<<<< HEAD
 // Helper function for image analysis logic
 async function analyzeImages(req, res) {
   console.log('=== API analyze request received ===');
@@ -125,26 +104,13 @@ async function analyzeImages(req, res) {
   try {
     if (!req.files || req.files.length === 0) {
       console.log('ERROR: No images uploaded in request');
-=======
-// API endpoint for image analysis
-app.post('/api/analyze', upload.array('images', 3), async (req, res) => {
-  console.log('API analyze request received');
-  
-  try {
-    if (!req.files || req.files.length === 0) {
-      console.log('No images uploaded');
->>>>>>> bdf707c (..)
       return res.status(400).json({ error: 'No images uploaded' });
     }
     
     console.log(`Received ${req.files.length} images for analysis`);
     
     if (req.files.length > 3) {
-<<<<<<< HEAD
       console.log('ERROR: Too many images uploaded:', req.files.length);
-=======
-      console.log('Too many images uploaded');
->>>>>>> bdf707c (..)
       return res.status(400).json({ error: 'Maximum 3 images allowed' });
     }
 
@@ -276,18 +242,9 @@ Format your response as a clean, well-structured JSON object without markdown fo
 
 Be extremely precise and technical in your analysis. If you cannot identify something with certainty, use "unknown" or null values rather than making assumptions. Focus on providing actionable information for responsible e-waste handling and accurate price estimates.
 `;
-<<<<<<< HEAD
 
     if (!model) {
       console.error('ERROR: Gemini model not initialized');
-=======
-    
-    console.log('Sending request to Gemini with', imageParts.length, 'images');
-    console.log('API Key status:', API_KEY ? 'present' : 'missing');
-    
-    if (!model) {
-      console.error('Gemini model not initialized');
->>>>>>> bdf707c (..)
       return res.status(500).json({ 
         error: 'AI model not initialized', 
         message: 'The AI service is currently unavailable. Please try again later.' 
@@ -298,7 +255,6 @@ Be extremely precise and technical in your analysis. If you cannot identify some
     
     // Call Gemini with safety measures
     try {
-<<<<<<< HEAD
       // Set a timeout for the Gemini API call
       const timeoutPromise = new Promise((_, reject) => {
         setTimeout(() => reject(new Error('Gemini API request timed out')), 30000); // 30 second timeout
@@ -350,21 +306,6 @@ Be extremely precise and technical in your analysis. If you cannot identify some
     }
   } catch (error) {
     console.error('ERROR: General server error:', error);
-=======
-      const analysis = JSON.parse(jsonString);
-      console.log('Successfully parsed Gemini response');
-      return res.json(analysis);
-    } catch (parseError) {
-      console.error('Error parsing Gemini response:', parseError);
-      console.log('Raw response:', text.substring(0, 200) + '...');
-      return res.status(500).json({ 
-        error: 'Failed to parse AI response', 
-        message: 'The AI returned an invalid format. Please try again.' 
-      });
-    }
-  } catch (error) {
-    console.error('Gemini error:', error);
->>>>>>> bdf707c (..)
     return res.status(500).json({ 
       error: 'AI analysis failed', 
       message: error.message || 'An unknown error occurred'
@@ -390,7 +331,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Start the server in development mode only
-<<<<<<< HEAD
 if (process.env.NODE_ENV === 'development') {
   app.listen(PORT, () => {
     console.log(`======================================================`);
@@ -401,9 +341,6 @@ if (process.env.NODE_ENV === 'development') {
     console.log(`======================================================`);
   });
 } else if (process.env.NODE_ENV !== 'production') {
-=======
-if (process.env.NODE_ENV !== 'production') {
->>>>>>> bdf707c (..)
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });

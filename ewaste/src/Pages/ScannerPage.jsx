@@ -108,22 +108,10 @@ const ScannerPage = () => {
       
       console.log(`Sending ${imagesToAnalyze.length} images to the server for analysis...`);
       
-<<<<<<< HEAD
-      // Use local server URL for development, production URL for production
-      const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-      const apiUrl = isDevelopment 
-        ? 'http://localhost:5000/analyze' 
-        : 'https://api-wvjpfafopq-uc.a.run.app/analyze';
-      
-      console.log('Using API URL:', apiUrl);
-      
-      console.log('Starting fetch request to API...');
-=======
       // Send to API endpoint with full URL and updated error handling
       const apiUrl = 'https://us-central1-firebase-452812.cloudfunctions.net/api/analyze';
       console.log('Using API URL:', apiUrl);
       
->>>>>>> bdf707c (..)
       const response = await fetch(apiUrl, {
         method: 'POST',
         body: formData,
