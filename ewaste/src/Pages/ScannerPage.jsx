@@ -84,6 +84,7 @@ const ScannerPage = () => {
 
   const handleFileUpload = (event) => {
     const files = Array.from(event.target.files);
+    console.log('Files selected:', files.length, files.map(f => `${f.name} (${f.type}, ${f.size} bytes)`));
     if (files.length > 0 && files.length <= 3) {
       setUploadedImages(files);
     } else if (files.length > 3) {
@@ -101,21 +102,28 @@ const ScannerPage = () => {
       
       // Add each image to the form data
       imagesToAnalyze.forEach((file, index) => {
+        console.log(`Adding file to FormData: ${file.name}, type: ${file.type}, size: ${file.size} bytes`);
         formData.append('images', file);
       });
       
       console.log(`Sending ${imagesToAnalyze.length} images to the server for analysis...`);
       
-      // Send to API endpoint with correct Cloud Run URL
-      const apiUrl = 'https://api-wvjpfafopq-uc.a.run.app/analyze';
+      // Use local server URL for development, production URL for production
+      const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      const apiUrl = isDevelopment 
+        ? 'http://localhost:5000/analyze' 
+        : 'https://api-wvjpfafopq-uc.a.run.app/analyze';
+      
       console.log('Using API URL:', apiUrl);
       
+      console.log('Starting fetch request to API...');
       const response = await fetch(apiUrl, {
         method: 'POST',
         body: formData,
+        mode: 'cors'
       });
       
-      console.log('Server response status:', response.status);
+      console.log('Server response received. Status:', response.status, response.statusText);
       
       if (!response.ok) {
         const errorText = await response.text();
@@ -123,8 +131,9 @@ const ScannerPage = () => {
         throw new Error(`API request failed with status ${response.status}: ${errorText}`);
       }
       
+      console.log('Response is OK, parsing JSON...');
       const data = await response.json();
-      console.log('Analysis results received:', data);
+      console.log('Analysis results received. Full data:', JSON.stringify(data).substring(0, 500) + '...');
       
       // Set results
       setResult({
@@ -139,6 +148,7 @@ const ScannerPage = () => {
       
     } catch (error) {
       console.error("Error analyzing images:", error);
+      console.error("Error stack:", error.stack);
       
       // Show error message with more details
       setResult({
@@ -158,7 +168,69 @@ const ScannerPage = () => {
 
   const processUploadedImages = () => {
     if (uploadedImages.length > 0) {
-      handleImageAnalysis(uploadedImages);
+      // For debugging: try test upload first
+      testImageUpload(uploadedImages).then(uploadSuccess => {
+        if (uploadSuccess) {
+          handleImageAnalysis(uploadedImages);
+        }
+      });
+    }
+  };
+  
+  // Test function to verify image upload works
+  const testImageUpload = async (images) => {
+    try {
+      const formData = new FormData();
+      images.forEach((file, index) => {
+        console.log(`Adding file to test upload: ${file.name}, type: ${file.type}, size: ${file.size} bytes`);
+        formData.append('images', file);
+      });
+      
+      console.log('Testing upload with', images.length, 'images');
+      
+      // Use local server URL for development, production URL for production
+      const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      const testUrl = isDevelopment 
+        ? 'http://localhost:5000/test-upload' 
+        : 'https://api-wvjpfafopq-uc.a.run.app/test-upload';
+      
+      console.log('Using test upload URL:', testUrl);
+      
+      console.log('Starting test upload fetch request...');
+      const response = await fetch(testUrl, {
+        method: 'POST',
+        body: formData,
+        mode: 'cors'
+      });
+      
+      console.log('Test upload response received. Status:', response.status, response.statusText);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Test upload failed:', errorText);
+        
+        setResult({
+          status: "error",
+          message: `Image upload test failed: ${response.status} - ${errorText}. Please try again.`
+        });
+        
+        return false;
+      }
+      
+      console.log('Test response is OK, parsing JSON...');
+      const data = await response.json();
+      console.log('Test upload success. Full response:', JSON.stringify(data));
+      return true;
+    } catch (error) {
+      console.error('Test upload error:', error);
+      console.error('Test upload error stack:', error.stack);
+      
+      setResult({
+        status: "error",
+        message: `Image upload test error: ${error.message}. Please try again.`
+      });
+      
+      return false;
     }
   };
 
