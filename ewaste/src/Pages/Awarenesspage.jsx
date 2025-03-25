@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Navbar from "../Components/HomePageComponents/nav";
-import Footer from "../Components/HomePageComponents/Footer";
+import Footer from "../Components/HomePageComponents/footer";
 import "./Awarenesspage.css";
 
 const AwarenessPage = () => {
