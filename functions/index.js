@@ -18,10 +18,26 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
+// Middleware - Use CORS with proper configuration for production
+const corsOptions = {
+  origin: [
+    'https://fir-452812.web.app', 
+    'https://firebase-452812.web.app',
+    'http://localhost:5173', // For local development
+    'http://localhost:5000'  // For local development
+  ],
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Debugging endpoint to verify API is working
+app.get('/api/test', (req, res) => {
+  res.json({ status: 'API is working' });
+});
 
 // Configure file upload
 const upload = multer({ storage: multer.memoryStorage() });
@@ -80,12 +96,18 @@ if (process.env.NODE_ENV === 'production') {
 
 // API endpoint for image analysis
 app.post('/api/analyze', upload.array('images', 3), async (req, res) => {
+  console.log('API analyze request received');
+  
   try {
     if (!req.files || req.files.length === 0) {
+      console.log('No images uploaded');
       return res.status(400).json({ error: 'No images uploaded' });
     }
     
+    console.log(`Received ${req.files.length} images for analysis`);
+    
     if (req.files.length > 3) {
+      console.log('Too many images uploaded');
       return res.status(400).json({ error: 'Maximum 3 images allowed' });
     }
 
@@ -193,8 +215,17 @@ Format your response as a clean, well-structured JSON object without markdown fo
 
 Be extremely precise and technical in your analysis. If you cannot identify something with certainty, use "unknown" or null values rather than making assumptions. Focus on providing actionable information for responsible e-waste handling and accurate price estimates.
 `;
-
+    
     console.log('Sending request to Gemini with', imageParts.length, 'images');
+    console.log('API Key status:', API_KEY ? 'present' : 'missing');
+    
+    if (!model) {
+      console.error('Gemini model not initialized');
+      return res.status(500).json({ 
+        error: 'AI model not initialized', 
+        message: 'The AI service is currently unavailable. Please try again later.' 
+      });
+    }
     
     // Call Gemini
     const result = await model.generateContent([PROMPT, ...imageParts]);
@@ -208,18 +239,19 @@ Be extremely precise and technical in your analysis. If you cannot identify some
     
     try {
       const analysis = JSON.parse(jsonString);
-      res.json(analysis);
+      console.log('Successfully parsed Gemini response');
+      return res.json(analysis);
     } catch (parseError) {
       console.error('Error parsing Gemini response:', parseError);
-      console.log('Raw response:', text);
-      res.status(500).json({ 
+      console.log('Raw response:', text.substring(0, 200) + '...');
+      return res.status(500).json({ 
         error: 'Failed to parse AI response', 
         message: 'The AI returned an invalid format. Please try again.' 
       });
     }
   } catch (error) {
     console.error('Gemini error:', error);
-    res.status(500).json({ 
+    return res.status(500).json({ 
       error: 'AI analysis failed', 
       message: error.message || 'An unknown error occurred'
     });
@@ -233,9 +265,12 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Start the server in development mode only
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
 
-exports.api = functions.https.onRequest(app);
+// Export the Express app as a Firebase Function called 'api'
+export const api = functions.https.onRequest(app);
