@@ -40,4 +40,4 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_FIREBASE_452812 }}
           channelId: live
           projectId: firebase-452812
-          targets: hosting,functions
+          target: hosting
