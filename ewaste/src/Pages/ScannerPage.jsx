@@ -106,8 +106,11 @@ const ScannerPage = () => {
       
       console.log(`Sending ${imagesToAnalyze.length} images to the server for analysis...`);
       
-      // Send to API endpoint
-      const response = await fetch('/api/analyze', {
+      // Send to API endpoint with correct Cloud Run URL
+      const apiUrl = 'https://api-wvjpfafopq-uc.a.run.app/analyze';
+      console.log('Using API URL:', apiUrl);
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         body: formData,
       });
@@ -115,7 +118,9 @@ const ScannerPage = () => {
       console.log('Server response status:', response.status);
       
       if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
+        const errorText = await response.text();
+        console.error('API Error response:', errorText);
+        throw new Error(`API request failed with status ${response.status}: ${errorText}`);
       }
       
       const data = await response.json();
@@ -135,7 +140,7 @@ const ScannerPage = () => {
     } catch (error) {
       console.error("Error analyzing images:", error);
       
-      // Show error message instead of mock data
+      // Show error message with more details
       setResult({
         status: "error",
         message: `Failed to analyze images: ${error.message || "Connection error"}. Please check your internet connection and try again.`
@@ -143,7 +148,7 @@ const ScannerPage = () => {
       
       // Stop the scanner if using camera
       if (scanning) {
-      stopScanner();
+        stopScanner();
       }
     } finally {
       setIsUploading(false);
@@ -637,6 +642,7 @@ const ScannerPage = () => {
                         style={{ display: 'none' }} 
                         accept="image/*" 
                         multiple 
+                        capture="environment"
                         onChange={handleFileUpload}
                       />
                       <motion.button
