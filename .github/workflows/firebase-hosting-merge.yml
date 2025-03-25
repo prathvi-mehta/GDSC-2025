@@ -23,8 +23,11 @@ jobs:
           cd ewaste
           npm ci
           npm run build
+<<<<<<< HEAD
         env:
           VITE_GOOGLE_MAPS_API_KEY: ${{ secrets.VITE_GOOGLE_MAPS_API_KEY }}
+=======
+>>>>>>> bdf707c (..)
       
       # Install dependencies for Firebase Functions
       - name: Setup Functions
@@ -40,3 +43,4 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_FIREBASE_452812 }}
           channelId: live
           projectId: firebase-452812
+          targets: hosting,functions
