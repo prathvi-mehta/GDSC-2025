@@ -23,6 +23,8 @@ jobs:
           cd ewaste
           npm ci
           npm run build
+        env:
+          VITE_GOOGLE_MAPS_API_KEY: ${{ secrets.VITE_GOOGLE_MAPS_API_KEY }}
       
       # Install dependencies for Firebase Functions
       - name: Setup Functions
