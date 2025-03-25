@@ -10,6 +10,14 @@
     ],
     "rewrites": [
       {
+        "source": "/analyze",
+        "function": "api"
+      },
+      {
+        "source": "/api/analyze",
+        "function": "api"
+      },
+      {
         "source": "/api/**",
         "function": "api"
       },

@@ -34,8 +34,8 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Debugging endpoint to verify API is working
-app.get('/api/test', (req, res) => {
+// Main API endpoints for direct Cloud Run URL access
+app.get('/test', (req, res) => {
   res.json({ status: 'API is working' });
 });
 
@@ -94,8 +94,8 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../dist')));
 }
 
-// API endpoint for image analysis
-app.post('/api/analyze', upload.array('images', 3), async (req, res) => {
+// Helper function for image analysis logic
+async function analyzeImages(req, res) {
   console.log('API analyze request received');
   
   try {
@@ -256,6 +256,17 @@ Be extremely precise and technical in your analysis. If you cannot identify some
       message: error.message || 'An unknown error occurred'
     });
   }
+}
+
+// Make the analyze endpoint work both with and without the /api prefix
+app.post('/analyze', upload.array('images', 3), async (req, res) => {
+  return analyzeImages(req, res);
+});
+
+// Keep the /api/analyze endpoint for backward compatibility
+app.post('/api/analyze', upload.array('images', 3), async (req, res) => {
+  console.log('API analyze request received via /api prefix');
+  return analyzeImages(req, res);
 });
 
 // In production, handle any requests that don't match the above by serving the React app
