@@ -112,6 +112,7 @@ const ScannerPage = () => {
       const apiUrl = 'https://us-central1-firebase-452812.cloudfunctions.net/api/analyze';
       console.log('Using API URL:', apiUrl);
       
+      console.log('Starting fetch request to API...');
       const response = await fetch(apiUrl, {
         method: 'POST',
         body: formData,
@@ -142,7 +143,8 @@ const ScannerPage = () => {
       }
       
     } catch (error) {
-      logNetworkError(error, 'image analysis');
+      console.error("Error analyzing images:", error);
+      console.error("Error stack:", error.stack);
       
       // Show error message with more details
       setResult({
@@ -162,7 +164,69 @@ const ScannerPage = () => {
 
   const processUploadedImages = () => {
     if (uploadedImages.length > 0) {
-      handleImageAnalysis(uploadedImages);
+      // For debugging: try test upload first
+      testImageUpload(uploadedImages).then(uploadSuccess => {
+        if (uploadSuccess) {
+          handleImageAnalysis(uploadedImages);
+        }
+      });
+    }
+  };
+  
+  // Test function to verify image upload works
+  const testImageUpload = async (images) => {
+    try {
+      const formData = new FormData();
+      images.forEach((file, index) => {
+        console.log(`Adding file to test upload: ${file.name}, type: ${file.type}, size: ${file.size} bytes`);
+        formData.append('images', file);
+      });
+      
+      console.log('Testing upload with', images.length, 'images');
+      
+      // Use local server URL for development, production URL for production
+      const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      const testUrl = isDevelopment 
+        ? 'http://localhost:5000/test-upload' 
+        : 'https://api-wvjpfafopq-uc.a.run.app/test-upload';
+      
+      console.log('Using test upload URL:', testUrl);
+      
+      console.log('Starting test upload fetch request...');
+      const response = await fetch(testUrl, {
+        method: 'POST',
+        body: formData,
+        mode: 'cors'
+      });
+      
+      console.log('Test upload response received. Status:', response.status, response.statusText);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Test upload failed:', errorText);
+        
+        setResult({
+          status: "error",
+          message: `Image upload test failed: ${response.status} - ${errorText}. Please try again.`
+        });
+        
+        return false;
+      }
+      
+      console.log('Test response is OK, parsing JSON...');
+      const data = await response.json();
+      console.log('Test upload success. Full response:', JSON.stringify(data));
+      return true;
+    } catch (error) {
+      console.error('Test upload error:', error);
+      console.error('Test upload error stack:', error.stack);
+      
+      setResult({
+        status: "error",
+        message: `Image upload test error: ${error.message}. Please try again.`
+      });
+      
+      return false;
     }
   };
   
