@@ -4,7 +4,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Navbar from "../Components/HomePageComponents/nav";
 import Footer from "../Components/HomePageComponents/Footer";
-import "./Awarenesspage.css";
+import "./AwarenessPage.css";
 
 const AwarenessPage = () => {
   useEffect(() => {

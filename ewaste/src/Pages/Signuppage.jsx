@@ -5,7 +5,7 @@ import Navbar from "../Components/HomePageComponents/nav";
 import Footer from "../Components/HomePageComponents/Footer";
 import { useAuth } from '../contexts/AuthContext';
 import Alert from '../Components/AuthComponents/Alert';
-import "./SignUpPage.css";
+import "./SignupPage.css";
 
 const SignUpPage = () => {
   const [formData, setFormData] = useState({
