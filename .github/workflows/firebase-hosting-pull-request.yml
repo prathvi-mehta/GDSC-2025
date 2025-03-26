@@ -13,7 +13,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm run build
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      # Install dependencies and build React app
+      - name: Build Frontend
+        run: |
+          cd ewaste
+          npm ci
+          npm run build
+        env:
+          VITE_GOOGLE_MAPS_API_KEY: ${{ secrets.VITE_GOOGLE_MAPS_API_KEY }}
+      
+      # Install dependencies for Firebase Functions
+      - name: Setup Functions
+        run: |
+          cd functions
+          npm ci
+      
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}

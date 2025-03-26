@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import Navbar from "../Components/HomePageComponents/nav";
-import Footer from "../Components/HomePageComponents/Footer";
+import Footer from "../Components/HomePageComponents/footer";
 import "./ScannerPage.css";
 
 const ScannerPage = () => {
@@ -84,6 +84,7 @@ const ScannerPage = () => {
 
   const handleFileUpload = (event) => {
     const files = Array.from(event.target.files);
+    console.log('Files selected:', files.length, files.map(f => `${f.name} (${f.type}, ${f.size} bytes)`));
     if (files.length > 0 && files.length <= 3) {
       setUploadedImages(files);
     } else if (files.length > 3) {
@@ -101,25 +102,38 @@ const ScannerPage = () => {
       
       // Add each image to the form data
       imagesToAnalyze.forEach((file, index) => {
+        console.log(`Adding file to FormData: ${file.name}, type: ${file.type}, size: ${file.size} bytes`);
         formData.append('images', file);
       });
       
       console.log(`Sending ${imagesToAnalyze.length} images to the server for analysis...`);
       
-      // Send to API endpoint
-      const response = await fetch('/api/analyze', {
+      // Use local server URL for development, production URL for production
+      const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      const apiUrl = isDevelopment 
+        ? 'http://localhost:5000/analyze' 
+        : 'https://api-wvjpfafopq-uc.a.run.app/analyze';
+      
+      console.log('Using API URL:', apiUrl);
+      
+      console.log('Starting fetch request to API...');
+      const response = await fetch(apiUrl, {
         method: 'POST',
         body: formData,
+        mode: 'cors'
       });
       
-      console.log('Server response status:', response.status);
+      console.log('Server response received. Status:', response.status, response.statusText);
       
       if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
+        const errorText = await response.text();
+        console.error('API Error response:', errorText);
+        throw new Error(`API request failed with status ${response.status}: ${errorText}`);
       }
       
+      console.log('Response is OK, parsing JSON...');
       const data = await response.json();
-      console.log('Analysis results received:', data);
+      console.log('Analysis results received');
       
       // Set results
       setResult({
@@ -133,9 +147,9 @@ const ScannerPage = () => {
       }
       
     } catch (error) {
-      console.error("Error analyzing images:", error);
+      logNetworkError(error, 'image analysis');
       
-      // Show error message instead of mock data
+      // Show error message with more details
       setResult({
         status: "error",
         message: `Failed to analyze images: ${error.message || "Connection error"}. Please check your internet connection and try again.`
@@ -143,7 +157,7 @@ const ScannerPage = () => {
       
       // Stop the scanner if using camera
       if (scanning) {
-      stopScanner();
+        stopScanner();
       }
     } finally {
       setIsUploading(false);
@@ -155,6 +169,12 @@ const ScannerPage = () => {
     if (uploadedImages.length > 0) {
       handleImageAnalysis(uploadedImages);
     }
+  };
+  
+  // Helper function for debugging
+  const logNetworkError = (error, context) => {
+    console.error(`Error in ${context}:`, error);
+    console.error(`Error stack:`, error.stack);
   };
 
   const handleBrowseClick = () => {
@@ -637,6 +657,7 @@ const ScannerPage = () => {
                         style={{ display: 'none' }} 
                         accept="image/*" 
                         multiple 
+                        capture="environment"
                         onChange={handleFileUpload}
                       />
                       <motion.button

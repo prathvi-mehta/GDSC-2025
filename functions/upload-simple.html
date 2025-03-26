@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Image Upload Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        pre {
+            background: #f6f8fa;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Direct Image Upload Test</h1>
+    
+    <div class="container">
+        <h2>Upload Image to Gemini</h2>
+        <p>Select an image of electronic waste:</p>
+        <input type="file" id="fileInput" accept="image/*">
+        <button id="uploadButton">Analyze with Gemini</button>
+        <div id="status"></div>
+        <pre id="result"></pre>
+    </div>
+
+    <script>
+        // Set this to your local development server address
+        const API_URL = 'http://localhost:5000/test-upload';
+        
+        document.getElementById('uploadButton').addEventListener('click', async () => {
+            const fileInput = document.getElementById('fileInput');
+            const statusDiv = document.getElementById('status');
+            const resultPre = document.getElementById('result');
+            
+            if (fileInput.files.length === 0) {
+                statusDiv.textContent = 'Please select an image file';
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('images', fileInput.files[0]);
+            
+            try {
+                statusDiv.textContent = 'Uploading and analyzing... (this may take up to 30 seconds)';
+                resultPre.textContent = '';
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.status} ${response.statusText}`);
+                }
+                
+                const result = await response.json();
+                statusDiv.textContent = 'Analysis complete!';
+                resultPre.textContent = JSON.stringify(result, null, 2);
+                
+            } catch (error) {
+                statusDiv.textContent = `Error: ${error.message}`;
+                console.error('Upload error:', error);
+            }
+        });
+    </script>
+</body>
+</html> 

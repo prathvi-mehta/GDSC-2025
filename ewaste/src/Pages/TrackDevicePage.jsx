@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Navbar from "../Components/HomePageComponents/nav";
-import Footer from "../Components/HomePageComponents/Footer";
+import Footer from "../Components/HomePageComponents/footer";
 import "./TrackDevicePage.css";
 
 const TrackDevicePage = () => {

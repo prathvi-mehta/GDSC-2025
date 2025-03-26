@@ -8,7 +8,7 @@ import Hero from "../Components/HomePageComponents/Hero";
 import About from "../Components/HomePageComponents/About";
 import Services from "../Components/HomePageComponents/Service";
 import Contact from "../Components/HomePageComponents/Contact";
-import Footer from "../Components/HomePageComponents/Footer";
+import Footer from "../Components/HomePageComponents/footer";
 import "./HomePage.css";
 
 const HomePage = () => {

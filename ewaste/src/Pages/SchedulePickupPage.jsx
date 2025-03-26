@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import Navbar from "../Components/HomePageComponents/nav";
-import Footer from "../Components/HomePageComponents/Footer";
+import Footer from "../Components/HomePageComponents/footer";
 import "./SchedulePickupPage.css";
 
 const SchedulePickupPage = () => {

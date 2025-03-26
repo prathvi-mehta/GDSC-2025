@@ -18,13 +18,28 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
+// Middleware - Use CORS with proper configuration for production
+const corsOptions = {
+  origin: '*', // Allow all origins for testing
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Configure file upload
-const upload = multer({ storage: multer.memoryStorage() });
+// Configure storage for multer
+const storage = multer.memoryStorage();
+const upload = multer({ 
+  storage: storage,
+  limits: {
+    fileSize: 10 * 1024 * 1024 // 10MB limit
+  }
+});
+
+// Add preflight OPTIONS handler
+app.options('*', cors(corsOptions));
 
 // Check if .env file exists and read API key directly if needed
 let API_KEY = process.env.GOOGLE_API_KEY;
@@ -73,29 +88,63 @@ try {
   }
 }
 
-// Serve static files from the React build in production
+// Serve static files
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../dist')));
+} else {
+  // In development mode, serve static files from the current directory
+  console.log('Serving static files from:', __dirname);
+  app.use(express.static(__dirname));
 }
 
-// API endpoint for image analysis
-app.post('/api/analyze', upload.array('images', 3), async (req, res) => {
+// Helper function for image analysis logic
+async function analyzeImages(req, res) {
+  console.log('=== API analyze request received ===');
+  
   try {
     if (!req.files || req.files.length === 0) {
+      console.log('ERROR: No images uploaded in request');
       return res.status(400).json({ error: 'No images uploaded' });
     }
     
+    console.log(`Received ${req.files.length} images for analysis`);
+    
     if (req.files.length > 3) {
+      console.log('ERROR: Too many images uploaded:', req.files.length);
       return res.status(400).json({ error: 'Maximum 3 images allowed' });
     }
 
     // Convert image buffer to Gemini-compatible format
-    const imageParts = req.files.map(file => ({
-      inlineData: {
-        data: file.buffer.toString('base64'),
-        mimeType: file.mimetype,
+    const imageParts = [];
+    
+    // Process each uploaded file
+    for (const file of req.files) {
+      try {
+        // Validate buffer
+        if (!file.buffer || file.buffer.length === 0) {
+          console.error(`Invalid buffer for file ${file.originalname}`);
+          continue;
+        }
+        
+        // Convert to base64
+        const base64Data = file.buffer.toString('base64');
+        
+        imageParts.push({
+          inlineData: {
+            data: base64Data,
+            mimeType: file.mimetype
+          }
+        });
+        
+        console.log(`Processed file: ${file.originalname}, size: ${file.size} bytes, mime: ${file.mimetype}`);
+      } catch (fileError) {
+        console.error(`Error processing file ${file.originalname}:`, fileError);
       }
-    }));
+    }
+    
+    if (imageParts.length === 0) {
+      return res.status(400).json({ error: 'Failed to process any of the uploaded images' });
+    }
     
     // Prompt for the AI
     const PROMPT = `
@@ -194,36 +243,84 @@ Format your response as a clean, well-structured JSON object without markdown fo
 Be extremely precise and technical in your analysis. If you cannot identify something with certainty, use "unknown" or null values rather than making assumptions. Focus on providing actionable information for responsible e-waste handling and accurate price estimates.
 `;
 
-    console.log('Sending request to Gemini with', imageParts.length, 'images');
+    if (!model) {
+      console.error('ERROR: Gemini model not initialized');
+      return res.status(500).json({ 
+        error: 'AI model not initialized', 
+        message: 'The AI service is currently unavailable. Please try again later.' 
+      });
+    }
     
-    // Call Gemini
-    const result = await model.generateContent([PROMPT, ...imageParts]);
-    const response = await result.response;
-    const text = response.text();
-
-    console.log('Received response from Gemini');
+    console.log('Sending request to Gemini with', imageParts.length, 'images...');
     
-    // Parse the JSON response (Gemini may return markdown, so clean it)
-    const jsonString = text.replace(/```json|```/g, '').trim();
-    
+    // Call Gemini with safety measures
     try {
-      const analysis = JSON.parse(jsonString);
-      res.json(analysis);
-    } catch (parseError) {
-      console.error('Error parsing Gemini response:', parseError);
-      console.log('Raw response:', text);
-      res.status(500).json({ 
-        error: 'Failed to parse AI response', 
-        message: 'The AI returned an invalid format. Please try again.' 
+      // Set a timeout for the Gemini API call
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Gemini API request timed out')), 30000); // 30 second timeout
+      });
+      
+      // Make the actual API call
+      const geminiPromise = model.generateContent([PROMPT, ...imageParts]);
+      
+      // Race the API call against the timeout
+      const result = await Promise.race([geminiPromise, timeoutPromise]);
+      const response = await result.response;
+      const text = response.text();
+  
+      console.log('Received response from Gemini');
+      
+      // Parse the JSON response (Gemini may return markdown, so clean it)
+      let jsonString = text.replace(/```json|```/g, '').trim();
+      
+      // Additional cleanup if needed
+      jsonString = jsonString.replace(/^[\s\n]*{/, '{').replace(/}[\s\n]*$/, '}');
+      
+      try {
+        const analysis = JSON.parse(jsonString);
+        console.log('Successfully parsed Gemini response into JSON');
+        return res.json(analysis);
+      } catch (parseError) {
+        console.error('ERROR: Failed to parse Gemini response as JSON:', parseError);
+        console.log('Raw response sample for debugging:', text.substring(0, 500) + '...');
+        
+        // Attempt to handle non-JSON responses
+        if (text.includes('device') && text.includes('sustainability')) {
+          return res.status(200).send({ 
+            raw_response: text,
+            note: 'The AI returned a response but not in valid JSON format.' 
+          });
+        }
+        
+        return res.status(500).json({ 
+          error: 'Failed to parse AI response', 
+          message: 'The AI returned an invalid format. Please try again.' 
+        });
+      }
+    } catch (geminiError) {
+      console.error('ERROR: Gemini API error:', geminiError);
+      return res.status(500).json({ 
+        error: 'Gemini API error', 
+        message: geminiError.message || 'An error occurred while analyzing the images' 
       });
     }
   } catch (error) {
-    console.error('Gemini error:', error);
-    res.status(500).json({ 
+    console.error('ERROR: General server error:', error);
+    return res.status(500).json({ 
       error: 'AI analysis failed', 
       message: error.message || 'An unknown error occurred'
     });
   }
+}
+
+// Make the analyze endpoint work both with and without the /api prefix
+app.post('/analyze', upload.array('images', 3), async (req, res) => {
+  return analyzeImages(req, res);
+});
+
+// Keep the /api/analyze endpoint for backward compatibility
+app.post('/api/analyze', upload.array('images', 3), async (req, res) => {
+  return analyzeImages(req, res);
 });
 
 // In production, handle any requests that don't match the above by serving the React app
@@ -233,9 +330,21 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Start the server in development mode only
+if (process.env.NODE_ENV === 'development') {
+  app.listen(PORT, () => {
+    console.log(`======================================================`);
+    console.log(`🚀 Local development server running at http://localhost:${PORT}`);
+    console.log(`- Main API endpoint: http://localhost:${PORT}/analyze`);
+    console.log(`======================================================`);
+    console.log(`💡 TIP: Use the frontend with API_URL set to http://localhost:${PORT}`);
+    console.log(`======================================================`);
+  });
+} else if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
 
-exports.api = functions.https.onRequest(app);
+// Export the Express app as a Firebase Function called 'api'
+export const api = functions.https.onRequest(app);
